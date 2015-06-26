@@ -1,6 +1,7 @@
 module Baidu
-
+	
 end
 
 require 'baidu/cloud_push'
-require 'baidu/api'
+require 'baidu/response'
+require 'baidu/request'
