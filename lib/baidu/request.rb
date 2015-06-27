@@ -33,7 +33,7 @@ module Baidu
 		#  method:   (String)
 		#  params:   (Hash)
 		# Return: (Baidu::Response)
-		def start(resource,method,params)
+		def start(resource,method,params={})
 			send_request(resource,method,params)
 		end
 
@@ -67,12 +67,12 @@ module Baidu
 			# Headers
 			req['Content-Type'] = "application/x-www-form-urlencoded;charset=utf-8"
 			req['User-Agent'] = "BCCS_SDK/3.0 (#{@sysinfo.os},#{@sysinfo.arch},#{@sysinfo.impl}) Ruby/#{RUBY_VERSION} (Baidu Push Server SDK V3.0.0)"
-			response = Net::HTTP.start(uri.host,uri.port,use_ssl: @options[:use_ssl]){|http| http.request(req)}
+			#response = Net::HTTP.start(uri.host,uri.port,use_ssl: @options[:use_ssl]){|http| http.request(req)}
 			#http_response_to_baidu_response(response)
 			
-			puts response.code
-			puts response.msg
-			puts response.message
+			#puts response.code
+			#puts response.msg
+			#puts response.message
 		end
 
 		##

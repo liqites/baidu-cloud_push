@@ -24,13 +24,13 @@ module Baidu
 		# Return: (Baidu::Response)
 		def push_single_device(channel_id,msg,*args)
 			resource,method = get_resource_and_method(__method__.to_s)
-			params = merge_params(push_default_params,args)
+			params = merge_params(args,push_default_params)
 			@request.start(resource,method,params)
 		end
 
 		def report_statistic_device
 			resource,method = get_resource_and_method(__method__.to_s)
-			params = merge_params(push_default_params,{})
+			params = merge_params
 			@request.start(resource,method,params)
 		end
 
@@ -54,7 +54,7 @@ module Baidu
 		#  default: (Hash)
 		#  args: (Hash)
 		# Return: (Hash)
-		def merge_params(default,args)
+		def merge_params(args={},default={})
 			# Public params
 			params = {}
 			params[:expires] = Time.now.to_i + 60*@expires unless @expires.nil?
@@ -72,6 +72,9 @@ module Baidu
 				h[k] = default_vals[i]
 			}
 			params.merge(h)
+			new_params = {}
+			params.sort.each{|p| new_params[p[0]] = p[1]}
+			new_params
 		end
 
 		##
