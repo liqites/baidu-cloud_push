@@ -1,6 +1,8 @@
-RSpec.describe Baidu::CloudPush
-	client = Baidu::CloudPush.new("test","test")
-	channel_id = "4611053353162104488"
+RSpec.describe Baidu::CloudPush do
+	apikey = SETTINGS["baidu"]["apikey"]
+	apisecret = SETTINGS["baidu"]["apisecret"]
+	client = Baidu::CloudPush.new(apikey,apisecret)
+	channel_id = SETTINGS["baidu"]["channel_id"]
 	message = {title:"title",description:"测试消息"}
 
 	context "private methods" do
