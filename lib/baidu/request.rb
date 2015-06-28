@@ -59,20 +59,18 @@ module Baidu
 				req = Net::HTTP::Get.new(uri)
 			when 'POST'
 				req = Net::HTTP::Post.new(uri)
-				puts URI.encode_www_form(params)
 				req.set_form_data(params)
 			end
+			puts ""
+			puts params
 			puts req.body
-			puts req.uri
 			# Headers
 			req['Content-Type'] = "application/x-www-form-urlencoded;charset=utf-8"
 			req['User-Agent'] = "BCCS_SDK/3.0 (#{@sysinfo.os},#{@sysinfo.arch},#{@sysinfo.impl}) Ruby/#{RUBY_VERSION} (Baidu Push Server SDK V3.0.0)"
-			#response = Net::HTTP.start(uri.host,uri.port,use_ssl: @options[:use_ssl]){|http| http.request(req)}
-			#http_response_to_baidu_response(response)
-			
-			#puts response.code
-			#puts response.msg
-			#puts response.message
+			response = Net::HTTP.start(uri.host,uri.port,use_ssl: @options[:use_ssl]){|http| http.request(req)}
+			res = http_response_to_baidu_response(response)
+			puts res.to_json
+			res
 		end
 
 		##
@@ -122,7 +120,7 @@ module Baidu
 		##
 		# Convert Net::HTTPResponse to Baidu::Response
 		def http_response_to_baidu_response(response)
-
+			Baidu::Response.new(response)
 		end
 
 		##

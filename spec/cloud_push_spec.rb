@@ -3,6 +3,7 @@ RSpec.describe Baidu::CloudPush do
 	apisecret = SETTINGS["baidu"]["apisecret"]
 	client = Baidu::CloudPush.new(apikey,apisecret)
 	channel_id = SETTINGS["baidu"]["channel_id"]
+	puts channel_id
 	message = {title:"title",description:"测试消息"}
 
 	context "private methods" do
@@ -21,7 +22,7 @@ RSpec.describe Baidu::CloudPush do
 
 	describe "#push_single_device" do
 		it "should send success" do
-			expect(client.report_statistic_device).to eq(0)
+			expect(client.push_single_device(channel_id,message.to_json,1).result).to eq(true)
 		end
 	end
 end

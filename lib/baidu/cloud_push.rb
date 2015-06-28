@@ -24,7 +24,7 @@ module Baidu
 		# Return: (Baidu::Response)
 		def push_single_device(channel_id,msg,*args)
 			resource,method = get_resource_and_method(__method__.to_s)
-			params = merge_params(args,push_default_params)
+			params = merge_params(args,push_default_params.merge({channel_id:channel_id,msg:msg}))
 			@request.start(resource,method,params)
 		end
 
@@ -35,7 +35,7 @@ module Baidu
 		end
 
 		private
-		## 
+		##
 		# Merge default and args hash parameters
 		# with default public parameter => [timestamp,device_type,expires,apikey]
 		# Example:
@@ -54,7 +54,7 @@ module Baidu
 		#  default: (Hash)
 		#  args: (Hash)
 		# Return: (Hash)
-		def merge_params(args={},default={})
+		def merge_params(args=[],default={})
 			# Public params
 			params = {}
 			params[:expires] = Time.now.to_i + 60*@expires unless @expires.nil?
@@ -71,7 +71,7 @@ module Baidu
 			default.keys.each_with_index{|k,i|
 				h[k] = default_vals[i]
 			}
-			params.merge(h)
+			params = params.merge(h)
 			new_params = {}
 			params.sort.each{|p| new_params[p[0]] = p[1]}
 			new_params
