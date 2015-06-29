@@ -11,7 +11,7 @@ module Baidu
 			@apikey = apikey
 			@request = Baidu::Request.new(apisecret,options)
 		end
-		
+
 		#-------------
 		#Public API
 		#-------------
@@ -36,13 +36,13 @@ module Baidu
 
 		def push_batch_device(channel_ids,msg,opt={})
 			set_resource_and_method(__method__)
-			@params = {channel_ids: channel_ids, msg: msg.to_json}.merge(opt)
+			@params = {channel_ids: channel_ids.to_json, msg: msg.to_json}.merge(opt)
 			send_request
 		end
 
-		def push_query_msg_status(msg_id)
+		def report_query_msg_status(msg_ids)
 			set_resource_and_method(__method__)
-			@params = {msg_id: msg_id}
+			@params = {msg_id: msg_ids.to_json}
 			send_request
 		end
 
@@ -78,18 +78,18 @@ module Baidu
 
 		def tag_add_devices(tag,channel_ids)
 			set_resource_and_method(__method__)
-			@params = {tag:tag,channel_ids:channel_ids}
+			@params = {tag:tag,channel_ids:channel_ids.to_json}
 			send_request
 		end
 
 		def tag_del_devices(tag,channel_ids)
 			set_resource_and_method(__method__)
-			@params = {tag:tag,channel_ids:channel_ids}
+			@params = {tag:tag,channel_ids:channel_ids.to_json}
 			send_request
 		end
 
 		def tag_device_num(tag)
-			set_resource_and_method(tag)
+			set_resource_and_method(__method__)
 			@params = {tag:tag}
 			send_request
 		end
