@@ -28,7 +28,7 @@ module Baidu
 			send_request
 		end
 
-		def push_tags(msg,tag,opt={})
+		def push_tags(tag,msg,opt={})
 			set_resource_and_method(__method__)
 			@params = {msg:msg.to_json,tag:tag,type:1}.merge(opt)
 			send_request
