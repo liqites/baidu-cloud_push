@@ -6,22 +6,47 @@ module Baidu
 		attr_reader :request,:apikey
 		attr_reader :resource_name,:method_name,:params
 		attr_accessor :devise_type,:expires
-
+		# 构造函数
+		# 
+		# == Parameters:
+		# apikey::
+		#   (String),应用的key
+		# apisecret::
+		#   (String),应用的secret
+		# options::
+		#   (Hash),额外参数，只接受{use_ssl:true}，默认为false，不使用https请求
 		def initialize(apikey,apisecret,options={})
 			@apikey = apikey
 			@request = Baidu::Request.new(apisecret,options)
 		end
 
-		#-------------
-		#Public API
-		#-------------
-
+		# 推送消息到单台设备
+		# 
+		# == Parameters:
+		# channel_id::
+		#   (String),对应设备的唯一的channel_id
+		# msg::
+		#   (Hash),消息内容
+		# opt::
+		#   (Hash),额外参数，非必须
+		#   {msg_type: 消息类型(0:消息，1:通知。默认0),
+		#   msg_expires: 消息过期时间(0~604800(86400*7)，默认为5小时(18000秒)),
+		#   deploy_status: 设置iOS应用的部署状态，仅iOS应用推送时使用，(1:开发状态，2:部署状态，默认2)}
+		# == Returns
+		# response(Baidu::Response)
 		def push_single_device(channel_id,msg,opt={})
 			set_resource_and_method(__method__)
 			@params = {channel_id:channel_id,msg:msg.to_json}.merge(opt)
 			send_request
 		end
 
+		# 推送广播消息
+		# 
+		# == Parameters:
+		# msg::
+		#   (String),消息内容
+		# opt::
+		#   (Hash),额外参数，非必须
 		def push_all(msg,opt={})
 			set_resource_and_method(__method__)
 			@params = {msg:msg.to_json}.merge(opt)
