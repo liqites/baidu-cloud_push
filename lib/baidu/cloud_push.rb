@@ -11,21 +11,117 @@ module Baidu
 			@apikey = apikey
 			@request = Baidu::Request.new(apisecret,options)
 		end
+		
+		#-------------
+		#Public API
+		#-------------
 
 		def push_single_device(channel_id,msg,opt={})
-			set_resource_and_method(__method__.to_s)
+			set_resource_and_method(__method__)
 			@params = {channel_id:channel_id,msg:msg.to_json}.merge(opt)
 			send_request
 		end
 
 		def push_all(msg,opt={})
-			set_resource_and_method(__method__.to_s)
+			set_resource_and_method(__method__)
 			@params = {msg:msg.to_json}.merge(opt)
 			send_request
 		end
 
 		def push_tags(msg,tag,opt={})
+			set_resource_and_method(__method__)
+			@params = {msg:msg.to_json,tag:tag,type:1}.merge(opt)
+			send_request
+		end
 
+		def push_batch_device(channel_ids,msg,opt={})
+			set_resource_and_method(__method__)
+			@params = {channel_ids: channel_ids, msg: msg.to_json}.merge(opt)
+			send_request
+		end
+
+		def push_query_msg_status(msg_id)
+			set_resource_and_method(__method__)
+			@params = {msg_id: msg_id}
+			send_request
+		end
+
+		def report_query_timer_records(timer_id,opt={})
+			set_resource_and_method(__method__)
+			@params = {timer_id: timer_id}.merge(opt)
+			send_request
+		end
+
+		def report_query_topic_records(topic_id,opt={})
+			set_resource_and_method(__method__)
+			@params = {topic_id:topic_id}.merge(opt)
+			send_request
+		end
+
+		def app_query_tags(opt={})
+		  set_resource_and_method(__method__)
+			@params = opt
+			send_request
+		end
+
+		def app_create_tag(tag)
+			set_resource_and_method(__method__)
+			@params = {tag: tag}
+			send_request
+		end
+
+		def app_del_tag(tag)
+			set_resource_and_method(__method__)
+			@params = {tag:tag}
+			send_request
+		end
+
+		def tag_add_devices(tag,channel_ids)
+			set_resource_and_method(__method__)
+			@params = {tag:tag,channel_ids:channel_ids}
+			send_request
+		end
+
+		def tag_del_devices(tag,channel_ids)
+			set_resource_and_method(__method__)
+			@params = {tag:tag,channel_ids:channel_ids}
+			send_request
+		end
+
+		def tag_device_num(tag)
+			set_resource_and_method(tag)
+			@params = {tag:tag}
+			send_request
+		end
+
+		def timer_query_list(opt={})
+			set_resource_and_method(__method__)
+			@params = opt
+			send_request
+		end
+
+		def timer_cancel(timer_id)
+			set_resource_and_method(__method__)
+			@params = {timer_id:timer_id}
+			send_request
+		end
+
+		def topic_query_list(opt={})
+			set_resource_and_method(__method__)
+			@params = opt
+			send_request
+		end
+
+		def report_statistic_device
+			set_resource_and_method(__method__)
+			@params = {}
+			send_request
+		end
+
+		def report_statistic_topic(topic_id)
+			set_resource_and_method(__method__)
+			@params = {topic_id:topic_id}
+			send_request
 		end
 
 		private
@@ -62,21 +158,8 @@ module Baidu
 			new_params
 		end
 
-		##
-		# Get resource and method name
-		# Example:
-		#  >> get_resource_and_method(push_single_device)
-		#  => "push","single_device"
-		# Arguments:
-		#  method_name: (String), should look like "resource_method"
-		# Return: (String,String)
-		def get_resource_and_method(method_name)
-			splited =method_name.sub("_"," ").split(" ")
-			return splited[0],splited[1]
-		end
-
 		def set_resource_and_method(method_name)
-			splited =method_name.sub("_"," ").split(" ")
+			splited =method_name.to_s.sub("_"," ").split(" ")
 			@resource_name = splited[0]
 			@method_name = splited[1]
 		end

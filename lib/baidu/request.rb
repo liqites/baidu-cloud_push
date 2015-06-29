@@ -14,7 +14,11 @@ module Baidu
 		# this hash should use the Get request
 		# type
 		REQUEST_GET = {
-			report: ['statistic_device']
+			report: ['statistic_device','statistic_topic','query_msg_status','query_timer_records','query_topic_records'],
+			app: ['query_tags'],
+			tag: ['device_num'],
+			timer: ['query_list'],
+			topic: ['query_list']
 		}
 
 		def initialize(apisecret,options = {})
