@@ -1,7 +1,10 @@
+require 'json'
+
 module Baidu
 	# The main Baidu::CloudPush driver
 	class CloudPush
-		attr_reader :options,:request,:apikey,:public_params
+		attr_reader :request,:apikey
+		attr_reader :resource_name,:method_name,:params
 		attr_accessor :devise_type,:expires
 
 		def initialize(apikey,apisecret,options={})
@@ -9,29 +12,20 @@ module Baidu
 			@request = Baidu::Request.new(apisecret,options)
 		end
 
-		##
-		# Push to single device
-		# Example:
-		#  >> Baidu::CloudPush.new(apikey,apisecret).push_single_device(29380323,"this is a message")
-		#  => response(Baidu::Response)
-		# Arguments:
-		#  channel_id: (String)
-		#  msg: (String)
-		# Optinal:
-		#  msg_type: (Integer) default: 0
-		#  msg_expires: (Integer) default: 18000
-		#  deploy_status: (Integer) default: 2
-		# Return: (Baidu::Response)
-		def push_single_device(channel_id,msg,*args)
-			resource,method = get_resource_and_method(__method__.to_s)
-			params = merge_params(args,push_default_params.merge({channel_id:channel_id,msg:msg}))
-			@request.start(resource,method,params)
+		def push_single_device(channel_id,msg,opt={})
+			set_resource_and_method(__method__.to_s)
+			@params = {channel_id:channel_id,msg:msg.to_json}.merge(opt)
+			send_request
 		end
 
-		def report_statistic_device
-			resource,method = get_resource_and_method(__method__.to_s)
-			params = merge_params
-			@request.start(resource,method,params)
+		def push_all(msg,opt={})
+			set_resource_and_method(__method__.to_s)
+			@params = {msg:msg.to_json}.merge(opt)
+			send_request
+		end
+
+		def push_tags(msg,tag,opt={})
+
 		end
 
 		private
@@ -54,7 +48,7 @@ module Baidu
 		#  default: (Hash)
 		#  args: (Hash)
 		# Return: (Hash)
-		def merge_params(args=[],default={})
+		def merge_params(args={})
 			# Public params
 			params = {}
 			params[:expires] = Time.now.to_i + 60*@expires unless @expires.nil?
@@ -62,16 +56,7 @@ module Baidu
 			params[:timestamp] = Time.now.to_i
 			params[:apikey] = @apikey
 
-			default_vals = default.values
-			default_vals.map.with_index{|v,i|
-				default_vals[i] = args[i].nil? ? default_vals[i] : args[i]
-			}
-
-			h = {}
-			default.keys.each_with_index{|k,i|
-				h[k] = default_vals[i]
-			}
-			params = params.merge(h)
+			params = params.merge(args)
 			new_params = {}
 			params.sort.each{|p| new_params[p[0]] = p[1]}
 			new_params
@@ -90,21 +75,14 @@ module Baidu
 			return splited[0],splited[1]
 		end
 
-		##
-		# Get push resource default params
-		# Example:
-		#  >> push_default_params
-		#  => {
-		#		msg_type: 0,
-		#		msg_expires: 18000,
-		#		deploy_status: 2
-		#	 }
-		def push_default_params
-			{
-				msg_type: 0,
-				msg_expires: 18000,
-				deploy_status: 2
-			}
+		def set_resource_and_method(method_name)
+			splited =method_name.sub("_"," ").split(" ")
+			@resource_name = splited[0]
+			@method_name = splited[1]
+		end
+
+		def send_request
+			@request.start(@resource_name,@method_name,merge_params(@params))
 		end
 	end
 end

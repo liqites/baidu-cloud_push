@@ -6,8 +6,9 @@ Gem::Specification.new do |s|
 	s.description  = 'This is the Ruby SDK for Baidu Cloud Push RestAPI version 3.0'
 	s.authors      = ["Tesla Lee"]
 	s.email        = 'leechee89@hotmail.com'
-	s.files        = ["lib/baidu.rb","lib/baidu/cloud_push.rb","lib/baidu/request.rb","lib/baidu/response.rb"]
-	s.homepage     = 
+	s.files        = ["lib/baidu.rb","lib/baidu/cloud_push.rb",
+		"lib/baidu/request.rb","lib/baidu/response.rb"]
+	s.homepage     =
 		'http://rubygems.org/gems/baidu-cloud_push'
 	s.license      = 'MIT'
 
