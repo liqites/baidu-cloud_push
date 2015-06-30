@@ -185,8 +185,8 @@ module Baidu
 
 		# 查询标签组设备数量
 		#
-		# @param tag [Type] 标签名称
-		# @return [Type] description of returned object
+		# @param tag [String] 标签名称
+		# @return [Baidu::Response]
 		def tag_device_num(tag)
 			set_resource_and_method(__method__)
 			@params = {tag:tag}
