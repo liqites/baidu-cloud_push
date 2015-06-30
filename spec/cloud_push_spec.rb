@@ -1,3 +1,6 @@
+# Description of method
+#
+# @return [Type] description of returned object
 RSpec.describe Baidu::CloudPush do
 	apikey = SETTINGS["baidu"]["apikey"]
 	apisecret = SETTINGS["baidu"]["apisecret"]
@@ -13,6 +16,10 @@ RSpec.describe Baidu::CloudPush do
 
 			it "should sent successfully with msg_type = 1(notification) " do
 				expect(client.push_single_device(channel_id,msg,{msg_type:1}).result).to eq(true)
+			end
+
+			it "shoud sent successfully with custom content" do
+				expect(client.push_single_device(channel_id,msg.merge({custom_content:{push_type:"Blog"}})).result).to eq(true)
 			end
 		end
 
