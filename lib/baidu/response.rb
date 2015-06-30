@@ -20,6 +20,9 @@ module Baidu
 			end
 		end
 
+		# to_json
+		#
+		# @return [Hash] 返回一个Hash
 		def to_json
 			if @result
 				{
