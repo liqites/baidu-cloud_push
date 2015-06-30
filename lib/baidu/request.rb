@@ -29,14 +29,14 @@ module Baidu
 		end
 
 		def start(resource,method,params={})
-			send_request(resource,method,params)
+			uri = get_uri(resource,method)
+			type = get_type(resource,method)
+			send_request(uri,type,params)
 		end
 
 		private
-		def send_request(resource,method,params)
-			uri = get_uri(resource,method)
-			type = get_type(resource,method)
-			params = params.merge({sign:gen_sign(@apisecret,type,get_url(resource,method),params)})
+		def send_request(uri,type,params)
+			params = params.merge({sign:gen_sign(@apisecret,type,uri.to_s,params)})
 			req = nil
 			case type
 			when 'GET'

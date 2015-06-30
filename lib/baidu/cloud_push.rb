@@ -250,15 +250,17 @@ module Baidu
 
 		private
 		def merge_params(args={})
-			params = {}
-			params[:expires] = Time.now.to_i + 60*@expires unless @expires.nil?
+			now_time = Time.now.to_i
+			params = {
+				timestamp: now_time,
+				apikey: @apikey
+			}
+			params[:expires] = now_time + 60*@expires unless @expires.nil?
 			params[:device_type] = @device_type unless @device_type.nil?
-			params[:timestamp] = Time.now.to_i
-			params[:apikey] = @apikey
 
-			params = params.merge(args)
 			new_params = {}
-			params.sort.each{|p| new_params[p[0]] = p[1]}
+
+			params.merge(args).sort.each{|p| new_params[p[0]] = p[1]}
 			new_params
 		end
 
