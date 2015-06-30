@@ -2,7 +2,9 @@
 =========================
 
 ## 1. Install
-当前版本 0.1.0 `gem install 'baidu-cloud_push'` `gem 'baidu-cloud_push'`
+current 0.1.0 `gem install 'baidu-cloud_push'` `gem 'baidu-cloud_push'`
+
+you can find the doc from rubygems.org
 
 ## 2. Usage
 
