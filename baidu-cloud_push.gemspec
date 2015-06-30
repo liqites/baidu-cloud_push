@@ -8,6 +8,7 @@ Gem::Specification.new do |s|
 	s.email        = 'leechee89@hotmail.com'
 	s.files        = ["lib/baidu.rb","lib/baidu/cloud_push.rb","lib/baidu/request.rb","lib/baidu/response.rb"]
 	s.homepage     =
-		'http://rubygems.org/gems/baidu-cloud_push'
+		'https://github.com/liqites/baidu-cloud_push'
 	s.license      = 'MIT'
+	s.add_runtime_dependency 'sysinfo'
 end

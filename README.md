@@ -1,11 +1,11 @@
-#Baidu Could Push SDK 3.0
-========================
+# Baidu Could Push SDK 3.0
+=========================
 
-## 1.	Install
-当前版本 0.1.0
-`gem install ‘baidu-cloud_push’`
-`gem ‘baidu-cloud_push’`
+## 1. Install
+当前版本 0.1.0 `gem install 'baidu-cloud_push'` `gem 'baidu-cloud_push'`
+
 ## 2. Usage
+
 ```ruby
 client = Baidu::CloudPush(‘you_api_key’,’your_api_secret’)
 client.push_single_device(channel_id,{title:”test”,description:”desc”}
@@ -32,6 +32,7 @@ client.push_single_device(channel_id,{title:”test”,description:”desc”}
 18. `topic_query_list(opt={})`
 
 ## 4.Contribution
-Contributions are very welcome.Whether it’s an issue or even a pull request.
+Contributions are very welcome.Whether it's an issue or even a pull request.
+
 ## 5.License
 MIT
