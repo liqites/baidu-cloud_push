@@ -15,7 +15,7 @@ module Baidu
 	class CloudPush
 		attr_reader :request,:apikey
 		attr_reader :resource_name,:method_name,:params
-		attr_accessor :devise_type,:expires
+		attr_accessor :device_type,:expires
 		# 构造函数
 		#
 		# @param apikey [String] 应用的key

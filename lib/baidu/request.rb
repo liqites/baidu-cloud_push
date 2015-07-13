@@ -3,7 +3,7 @@ require 'digest'
 require 'sysinfo'
 
 module Baidu
-	# 百度云推送API分装类
+	# 百度云推送API封装类
 	#
 	# @attr_reader apisecret [String] 应用的secret
 	# @attr_reader options [Hash] 配置参数
