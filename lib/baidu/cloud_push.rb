@@ -275,3 +275,5 @@ module Baidu
 		end
 	end
 end
+
+require 'baidu/request'
