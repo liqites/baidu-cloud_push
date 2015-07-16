@@ -8,7 +8,7 @@ RSpec.describe Baidu::CloudPush do
   describe "when " do
     it "should send to ios" do
 			client.device_type = 4
-      response = client.push_single_device(channel_id,message,{deploy_status: 2})
+      response = client.push_batch_device([channel_id],message)
 			puts response.to_json
 			expect(1).to eq(1)
     end

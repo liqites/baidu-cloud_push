@@ -36,9 +36,7 @@ module Baidu
 
 		private
 		def send_request(uri,type,params)
-			puts params
 			params = params.merge({sign:gen_sign(@apisecret,type,uri.to_s,params)})
-			puts params
 			req = nil
 			case type
 			when 'GET'
@@ -50,10 +48,7 @@ module Baidu
 			end
 			req['Content-Type'] = "application/x-www-form-urlencoded;charset=utf-8"
 			req['User-Agent'] = "BCCS_SDK/3.0 (#{@sysinfo.os},#{@sysinfo.arch},#{@sysinfo.impl}) Ruby/#{RUBY_VERSION} (Baidu Push Server SDK V3.0.0)"
-			puts req.body
 			response = Net::HTTP.start(uri.host,uri.port,use_ssl: @options[:use_ssl]){|http| http.request(req)}
-			puts response.code
-			puts response.msg
 			http_response_to_baidu_response(response)
 		end
 
