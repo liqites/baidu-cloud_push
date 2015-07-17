@@ -2,7 +2,7 @@
 =========================
 
 ## 1. Install
-[![Gem Version](https://badge.fury.io/rb/baidu-cloud_push@2x.png)](http://badge.fury.io/rb/baidu-cloud_push)
+[![Gem Version](https://badge.fury.io/rb/baidu-cloud_push.svg)](http://badge.fury.io/rb/baidu-cloud_push)
 
 `gem install 'baidu-cloud_push'` `gem 'baidu-cloud_push'`
 
