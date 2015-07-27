@@ -1,3 +1,6 @@
+# v0.1.5
+1. 修复bug
+
 # v0.1.4
 1. 增加配置 mode，分别为`:limited`和`:super`，默认为,`:limited`模式
 2. 在:limited模式下，只能使用`push_single_device` 和 `push_batch_device`两个接口
