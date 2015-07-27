@@ -15,7 +15,15 @@ client = Baidu::CloudPush(‘you_api_key’,’your_api_secret’)
 client.push_single_device(channel_id,{title:”test”,description:”desc”}
 ```
 
-## 3. All supported API
+## 3. Configuration
+
+```ruby
+Baidu::CloudPush.configure do |config|
+  config.mode = :super (:limited)
+end
+```
+
+## 4. All supported API
 1. `push_single_device(channel_id,msg,opt={})`
 2. `push_all(msg,opt={})`
 3. `push_batch_device(channel_ids,msg,opt={})`
@@ -35,8 +43,8 @@ client.push_single_device(channel_id,{title:”test”,description:”desc”}
 17. `timer_query_list(opt={})`
 18. `topic_query_list(opt={})`
 
-## 4.Contribution
+## 5.Contribution
 Contributions are very welcome.Whether it's an issue or even a pull request.
 
-## 5.License
+## 6.License
 MIT
