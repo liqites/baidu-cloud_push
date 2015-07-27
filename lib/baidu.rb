@@ -5,3 +5,4 @@ end
 require 'baidu/cloud_push'
 require 'baidu/response'
 require 'baidu/request'
+require 'baidu/configuration'

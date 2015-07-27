@@ -4,19 +4,23 @@ module Baidu
 	class Response
 		attr_reader :request_id,:response_params,:error_code,:error_msg,:result
 
-		def initialize(http_response)
-			body = JSON.parse(http_response.body)
-			if http_response.code.to_i == 200
-				# success
-				@result = true
-				@request_id = body["request_id"]
-				@response_params = body["response_params"]
-			else
-				# failed
+		def initialize(http_response=nil)
+			if http_response.nil?
 				@result = false
-				@request_id = body["request_id"]
-				@error_code = body["error_code"]
-				@error_msg = body["error_msg"]
+			else
+				body = JSON.parse(http_response.body)
+				if http_response.code.to_i == 200
+					# success
+					@result = true
+					@request_id = body["request_id"]
+					@response_params = body["response_params"]
+				else
+					# failed
+					@result = false
+					@request_id = body["request_id"]
+					@error_code = body["error_code"]
+					@error_msg = body["error_msg"]
+				end
 			end
 		end
 

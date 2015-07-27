@@ -16,6 +16,9 @@ module Baidu
 		attr_reader :request,:apikey
 		attr_reader :resource_name,:method_name,:params
 		attr_accessor :device_type,:expires
+
+		LIMITED_ALLOWED = ["push_single_device","push_batch_device"]
+
 		# 构造函数
 		#
 		# @param apikey [String] 应用的key
@@ -25,6 +28,7 @@ module Baidu
 		def initialize(apikey,apisecret,options={})
 			@apikey = apikey
 			@request = Baidu::Request.new(apisecret,options)
+			@config = Baidu::Configuration.new({mode: :limited})
 		end
 
 		# 推送消息到单台设备
@@ -206,7 +210,6 @@ module Baidu
 			send_request
 		end
 
-
 		# 取消定时任务
 		#
 		# @param timer_id [String] 定时任务ID
@@ -248,6 +251,13 @@ module Baidu
 			send_request
 		end
 
+		# Configuration
+		#
+		# @param &block [Block]
+		def configure(&block)
+			block.call(@config)
+		end
+
 		private
 		def merge_params(args={})
 			now_time = Time.now.to_i
@@ -271,9 +281,15 @@ module Baidu
 		end
 
 		def send_request
-			@request.start(@resource_name,@method_name,merge_params(@params))
+			if @config.mode == :super || LIMITED_ALLOWED.include?(@method_name)
+				@request.start(@resource_name,@method_name,merge_params(@params))
+			else
+				return Baidu::Response.new()
+			end
 		end
 	end
 end
 
 require 'baidu/request'
+require 'baidu/response'
+require 'baidu/configuration'
