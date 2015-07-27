@@ -2,7 +2,9 @@
 =========================
 
 ## 1. Install
-current 0.1.0 `gem install 'baidu-cloud_push'` `gem 'baidu-cloud_push'`
+[![Gem Version](https://badge.fury.io/rb/baidu-cloud_push.svg)](http://badge.fury.io/rb/baidu-cloud_push)
+
+`gem install 'baidu-cloud_push'` `gem 'baidu-cloud_push'`
 
 you can find the doc from rubygems.org
 
