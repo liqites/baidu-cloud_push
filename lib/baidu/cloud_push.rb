@@ -17,7 +17,7 @@ module Baidu
 		attr_reader :resource_name,:method_name,:params
 		attr_accessor :device_type,:expires
 
-		LIMITED_ALLOWED = ["push_single_device","push_batch_device"]
+		LIMITED_ALLOWED = ["single_device","batch_device"]
 
 		# 构造函数
 		#
@@ -28,7 +28,8 @@ module Baidu
 		def initialize(apikey,apisecret,options={})
 			@apikey = apikey
 			@request = Baidu::Request.new(apisecret,options)
-			@config = Baidu::Configuration.new({mode: :limited})
+			@config = Baidu::Configuration.instance
+			@config.mode = :limited
 		end
 
 		# 推送消息到单台设备
@@ -254,8 +255,8 @@ module Baidu
 		# Configuration
 		#
 		# @param &block [Block]
-		def configure(&block)
-			block.call(@config)
+		def self.configure(&block)
+			block.call(Baidu::Configuration.instance)
 		end
 
 		private
