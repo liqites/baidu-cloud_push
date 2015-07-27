@@ -29,7 +29,6 @@ module Baidu
 			@apikey = apikey
 			@request = Baidu::Request.new(apisecret,options)
 			@config = Baidu::Configuration.instance
-			@config.mode = :limited
 		end
 
 		# 推送消息到单台设备

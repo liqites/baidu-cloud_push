@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
 	s.name         = 'baidu-cloud_push'
-	s.version      = '0.1.5'
+	s.version      = '0.1.6'
 	s.date         = '2015-06-25'
 	s.summary      = 'Baidu Cloud Push Rest SDK 3.0'
 	s.description  = 'This is the Ruby SDK for Baidu Cloud Push RestAPI version 3.0'
