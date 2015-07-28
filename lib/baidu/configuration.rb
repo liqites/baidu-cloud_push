@@ -6,7 +6,7 @@ module Baidu
     attr_accessor :mode
 
     def initialize
-      @mode = :limited
+      @mode = :super
     end
   end
 end
