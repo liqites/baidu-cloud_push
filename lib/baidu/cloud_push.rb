@@ -26,6 +26,7 @@ module Baidu
 		# @param options [Hash] 自定义参数
 		# @option options [boolean] :use_ssl 默认:false，不使用https请求
 		def initialize(apikey,apisecret,options={})
+			raise ArgumentError, 'Baidu cloud push apikey and apisecret are required' unless apikey && apisecret
 			@apikey = apikey
 			@request = Baidu::Request.new(apisecret,options)
 			@config = Baidu::Configuration.instance

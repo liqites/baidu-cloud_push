@@ -4,22 +4,29 @@
 ## 1. Install
 [![Gem Version](https://badge.fury.io/rb/baidu-cloud_push.svg)](http://badge.fury.io/rb/baidu-cloud_push)
 
-`gem install 'baidu-cloud_push'` `gem 'baidu-cloud_push'`
+    $ gem install 'baidu-cloud_push'
 
-you can find the doc from rubygems.org
+Add `baidu-cloud_push` to your Gemfile:
+
+```ruby
+gem "baidu-cloud_push"
+```
+
+you can find the doc from [rubygems.org](https://rubygems.org/gems/baidu-cloud_push)
 
 ## 2. Usage
 
 ```ruby
-client = Baidu::CloudPush(‘you_api_key’,’your_api_secret’)
-client.push_single_device(channel_id,{title:”test”,description:”desc”}
+client = Baidu::CloudPush.new("you_api_key", "your_api_secret")
+client.push_single_device(channel_id, title: "test", description: "desc")
+client.push_single_device(channel_id, { title: "test", description: "desc" }, msg_type: 1)
 ```
 
 ## 3. Configuration
 
 ```ruby
 Baidu::CloudPush.configure do |config|
-  config.mode = :super (:limited)
+  config.mode = :super # or :limited
 end
 ```
 
